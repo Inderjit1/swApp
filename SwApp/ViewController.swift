@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  Favor
+//  SwApp
 //
 //  Created by Bassi on 4/16/17.
 //  Copyright © 2017 Bassi. All rights reserved.
