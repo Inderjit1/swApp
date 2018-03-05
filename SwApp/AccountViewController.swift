@@ -1,8 +1,7 @@
 //
 //  AccountViewController.swift
-//  Favor
+//  SwApp
 //
-//  Created by Bassi on 4/18/17.
 //  Copyright © 2017 Bassi. All rights reserved.
 // 
 

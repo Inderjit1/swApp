@@ -1,8 +1,7 @@
 //
 //  SearchDetailViewController.swift
-//  Favor
-//
-//  Created by Navjot Bola on 5/15/17.
+//  SwApp
+
 //  Copyright © 2017 Bassi. All rights reserved.
 //
 

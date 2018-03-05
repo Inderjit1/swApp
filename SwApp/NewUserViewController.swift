@@ -1,8 +1,7 @@
 //
 //  NewUserViewController.swift
-//  Favor
+//  SwApp
 //
-//  Created by Bassi on 4/20/17.
 //  Copyright © 2017 Bassi. All rights reserved.
 //
 

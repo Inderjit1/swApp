@@ -1,8 +1,7 @@
 //
 //  AuthenticationViewController.swift
-//  Favor
+//  SwApp
 //
-//  Created by Bassi on 5/13/17.
 //  Copyright © 2017 Bassi. All rights reserved.
 //
 

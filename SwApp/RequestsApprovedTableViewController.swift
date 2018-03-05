@@ -1,8 +1,7 @@
 //
 //  RequestsApprovedTableViewController.swift
-//  Favor
+//  SwApp
 //
-//  Created by Navjot Bola on 5/15/17.
 //  Copyright © 2017 Bassi. All rights reserved.
 //
 
