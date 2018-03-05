@@ -21,7 +21,8 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
     }
     let searchController = UISearchController(searchResultsController: nil)
     var usersArray = [NSDictionary?]()
-    var filteredUsers = [NSDictionary?]()
+   // var filteredUsers = [NSDictionary?]()
+    var filteredUsers = [Objects]()
     var skillsArray = [NSDictionary?]()
     var skillsDict = [String: NSDictionary]()
     @IBOutlet var resultsTableView: UITableView!
@@ -33,6 +34,8 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
     override func viewDidLoad() {
         super.viewDidLoad()
         searchController.searchResultsUpdater = self
+        //searchController.obscuresBackgroundDuringPresentation = false
+        
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
@@ -60,18 +63,18 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
                                 String($0)
                             }
                         self.objectsArray.append(Objects(sectionName: name, sectionObjects: stringArray, cost: stringArray3, email: email))
-                        print(skillsArray)
-                        print("-------")
+                        //print(skillsArray)
+                        //print("-------")
                         for(key, element) in skillsArray {
                             count = count+1
-                            print(key)
-                            print(element)
+                          //  print(key)
+                         //   print(element)
                         }
-                        print("-------")
+                        //print("-------")
                         self.skillsArray.append(skillsArray)
                         self.skillsDict[name] = skillsArray
                         for aSkill in skillsArray{
-                            print(aSkill)
+                       //     print(aSkill)
                         }
                     }
                     print(self.objectsArray)
@@ -92,45 +95,128 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
         super.didReceiveMemoryWarning()
     }
     
+    func searchBarIsEmpty() -> Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    func isFiltering() -> Bool {
+        return searchController.isActive && !searchBarIsEmpty()
+    }
+    
     
     override func numberOfSections(in tableView: UITableView) -> Int {
+        if isFiltering(){
+            return filteredUsers.count
+        }
         return objectsArray.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
+        if isFiltering(){
+            return filteredUsers[section].sectionObjects.count
+        }
         return objectsArray[section].sectionObjects.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if isFiltering(){
+            return filteredUsers[section].sectionName
+        }
         return objectsArray[section].sectionName
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        var cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! UITableViewCell!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let allobjects: Objects
+        if isFiltering(){
+           
+            //allobjects = filteredUsers[indexPath.row]
+            print("ISFILTERING")
+            print("The section number is: \(indexPath.section)")
+            print("The row number is: \(indexPath.row)")
+            
+            //print(indexPath.section)
+            //cell.textLabel?.text = filteredUsers[indexPath.row].sectionObjects
+            cell.textLabel?.text = filteredUsers[indexPath.section].sectionObjects[indexPath.row]
+            cell.detailTextLabel?.text = filteredUsers[indexPath.section].cost[indexPath.row]
+        }
+        else{
+            print("ISNOTFILTERING")
+            print("The section number is: \(indexPath.section)")
+            print("The row number is: \(indexPath.row)")
+            
+            allobjects = objectsArray[indexPath.row]
+            cell.textLabel?.text = objectsArray[indexPath.section].sectionObjects[indexPath.row]
+            cell.detailTextLabel?.text = objectsArray[indexPath.section].cost[indexPath.row]
+        }
+        
+        //cell.textLabel?.text = allobjects.sectionObjects[0]
+        //cell.detailTextLabel?.text = allobjects.cost[0]
+        
+        //cell.textLabel?.text = objectsArray[indexPath.row].sectionObjects[indexPath.row]
+        //cell.detailTextLabel?.text = objectsArray[indexPath.row].cost[indexPath.row]
+       
+        
+        // var cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! UITableViewCell!
         
         // Configure the cell here
-        cell?.textLabel?.text = objectsArray[indexPath.section].sectionObjects[indexPath.row]
-        cell?.detailTextLabel?.text = objectsArray[indexPath.section].cost[indexPath.row]
+        //cell?.textLabel?.text = objectsArray[indexPath.section].sectionObjects[indexPath.row]
+        //cell?.detailTextLabel?.text = objectsArray[indexPath.section].cost[indexPath.row]
         
-        return cell!
+        return cell
     }
     
  
     
     func updateSearchResults(for searchController: UISearchController) {
-        print("starting search 2...")
+        //print("starting search 2...")
+        for info in objectsArray
+        {
+            //print("INSIDE HERE" + "\(info.cost)")
+        }
         //update search results here
         filterContent(searchText: self.searchController.searchBar.text!)
+        //print(self.searchController.searchBar.text!)
     }
     
     //for filter search bar
     func filterContent(searchText: String){
-        print("starting search...")
-        self.filteredUsers = self.usersArray.filter{ user in
-            let username = user!["Skills"] as? String
-            return(username?.lowercased().contains(searchText.lowercased()))!
+        //print("starting search...")
+        
+        
+        // WORKS FOR FILTERING BY USERS
+      filteredUsers = self.objectsArray.filter( {( allobjects: Objects) -> Bool in
+           // print("FILTERING CHECK")
+            return allobjects.sectionName.lowercased().contains(searchText.lowercased())}
+        )
+        
+        
+        
+        /*filteredUsers = self.objectsArray.filter( {( allobjects: Objects) -> Bool in
+            
+                    if allobjects.sectionObjects.contains("Cooking")
+                    {
+                        print("OVER HERE")
+                    }
+                    return allobjects.sectionObjects.contains(searchText)
+            })*/
+        
+        
+        print("WHAT ARE THE FILTERED USERS")
+        for user in filteredUsers{
+            print(user.sectionName)
         }
+        
+        
+        
+        /*self.filteredUsers = self.usersArray.filter{ user in
+            let username = user!["Skills"] as? String
+            //print("TESTING HERE" + (username?)!)
+            return(username?.lowercased().contains(searchText.lowercased()))!
+        }*/
+
+        
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -142,14 +228,30 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
         showUserProfileViewController.loggedInUser = self.loggedInUser
         
         if let indexPath = tableView.indexPathForSelectedRow{
-            let userName = objectsArray[indexPath.section].sectionName
-            showUserProfileViewController.otherUserName = userName
-            let userSkill = objectsArray[indexPath.section].sectionObjects[indexPath.row]
-            showUserProfileViewController.otherUserSkill = userSkill
-            let userEmail = objectsArray[indexPath.section].email
-            showUserProfileViewController.otherUserEmail = userEmail
-            let userCost = "\(objectsArray[indexPath.section].cost[indexPath.row])"
-            showUserProfileViewController.otherUserCost = String(userCost)
+            if isFiltering(){
+                let userName = filteredUsers[indexPath.section].sectionName
+                showUserProfileViewController.otherUserName = userName
+                let userSkill = filteredUsers[indexPath.section].sectionObjects[indexPath.row]
+                showUserProfileViewController.otherUserSkill = userSkill
+                let userEmail = filteredUsers[indexPath.section].email
+                showUserProfileViewController.otherUserEmail = userEmail
+                let userCost = "\(filteredUsers[indexPath.section].cost[indexPath.row])"
+                showUserProfileViewController.otherUserCost = String(userCost)
+            }
+            else
+            {
+                let userName = objectsArray[indexPath.section].sectionName
+                showUserProfileViewController.otherUserName = userName
+                let userSkill = objectsArray[indexPath.section].sectionObjects[indexPath.row]
+                showUserProfileViewController.otherUserSkill = userSkill
+                let userEmail = objectsArray[indexPath.section].email
+                showUserProfileViewController.otherUserEmail = userEmail
+                let userCost = "\(objectsArray[indexPath.section].cost[indexPath.row])"
+                showUserProfileViewController.otherUserCost = String(userCost)
+                
+            }
+            
+            
         }
     }
 }
