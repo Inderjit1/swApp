@@ -1,20 +1,22 @@
 //
 //  SearchDetailViewController.swift
 //  SwApp
-
-//  Copyright © 2017 Bassi. All rights reserved.
+//
+//  Created by Hedi Moalla on 2/23/18.
+//  Copyright © 2018 Moalla. All rights reserved.
 //
 
 import UIKit
 import Firebase
 import FirebaseDatabase
+import FirebaseAuth
 
 class SearchDetailViewController: UIViewController {
-    var databaseRef = FIRDatabase.database().reference()
+    var databaseRef = Database.database().reference()
     var requestsArray = [String]()
 
     @IBOutlet weak var showUser: UILabel!
-    var loggedInUser: FIRUser?
+    //var loggedInUser: FIRUser?
     var loggedInUserCost: Int!
     var loggedInUserEmail: Int!
     var otherUserSkill: String!
@@ -31,7 +33,7 @@ class SearchDetailViewController: UIViewController {
         showUser?.text = otherUserName
         skillLabel?.text = "is offering skill " +  otherUserSkill + " for " + otherUserCost + " points"
 
-        self.databaseRef.child("Profile").child(FIRAuth.auth()!.currentUser!.uid).observeSingleEvent(of: .value, with: {(snapshot) in
+        self.databaseRef.child("Profile").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: {(snapshot) in
             let snapshotValue = snapshot.value as? NSDictionary
             let name = snapshotValue?["Name"] as? String
             let points = snapshotValue?["Points"] as? Int
@@ -95,7 +97,7 @@ class SearchDetailViewController: UIViewController {
                 let newPoints = self.thePoints - Int(self.otherUserCost)!
                 
                 //update current user points
-                self.databaseRef.child("Profile/\(FIRAuth.auth()!.currentUser!.uid.replacingOccurrences(of: ".com", with: ""))/Points").setValue(newPoints)
+                self.databaseRef.child("Profile/\(Auth.auth().currentUser!.uid.replacingOccurrences(of: ".com", with: ""))/Points").setValue(newPoints)
             }
             
         })

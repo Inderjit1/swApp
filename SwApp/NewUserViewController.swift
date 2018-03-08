@@ -2,7 +2,8 @@
 //  NewUserViewController.swift
 //  SwApp
 //
-//  Copyright © 2017 Bassi. All rights reserved.
+//  Created by Hedi Moalla on 2/23/18.
+//  Copyright © 2018 Moalla. All rights reserved.
 //
 
 import UIKit
@@ -18,7 +19,7 @@ class NewUserViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         navigationItem.title = "New User Account"
         self.PasswordLabel.delegate = self
-        ref = FIRDatabase.database().reference()
+        ref = Database.database().reference()
         
     }
 
@@ -31,7 +32,7 @@ class NewUserViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var nameLabel: UITextField!
     
    // @IBOutlet weak var skillsLabel: UITextField!
-    var ref: FIRDatabaseReference!
+    var ref: DatabaseReference!
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         enterAccount()
@@ -65,12 +66,12 @@ class NewUserViewController: UIViewController, UITextFieldDelegate {
             let alertController = UIAlertController(title: "Error", message: "Please enter a valid school email", preferredStyle: .alert)
             displayErrorMessage(alertController: alertController)
         default:
-            FIRAuth.auth()?.createUser(withEmail: UserIDLabel.text!, password: PasswordLabel.text!) {(user, error) in
+            Auth.auth().createUser(withEmail: UserIDLabel.text!, password: PasswordLabel.text!) {(user, error) in
                 if error == nil
                 {
                     print("The sign-up was successful!\n")
                     user?.sendEmailVerification(completion: nil)
-                    self.ref.child("Profile/\(FIRAuth.auth()!.currentUser!.uid)").setValue(["Name" : "\(self.nameLabel.text!)", "Email ID":FIRAuth.auth()?.currentUser?.email, "Skills": "", "Points" : 50, "Pending Requests" : "", "Approved Requests": "", "Sent Requests" : ""])
+                    self.ref.child("Profile/\(Auth.auth().currentUser!.uid)").setValue(["Name" : "\(self.nameLabel.text!)", "Email ID":Auth.auth().currentUser?.email, "Skills": "", "Points" : 50, "Pending Requests" : "", "Approved Requests": "", "Sent Requests" : ""])
                     self.performSegue(withIdentifier: "createdUser", sender: self)
                 }
                 else

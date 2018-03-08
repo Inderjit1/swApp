@@ -2,22 +2,24 @@
 //  RequestsPendingTableViewController.swift
 //  SwApp
 //
-//  Copyright © 2017 Bassi. All rights reserved.
+//  Created by Casey Reyes on 2/23/18.
+//  Copyright © 2018 Reyes. All rights reserved.
 //
 
 import UIKit
 import Firebase
 import FirebaseDatabase
+import FirebaseAuth
 
 class RequestsPendingTableViewController: UITableViewController {
-    var databaseRef = FIRDatabase.database().reference()
+    var databaseRef = Database.database().reference()
     var requestsArray = [String]()
     var approvedRequestsArray = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("loaded")
-        self.databaseRef.child("Profile").child(FIRAuth.auth()!.currentUser!.uid).observeSingleEvent(of: .value, with: {(snapshot) in
+        self.databaseRef.child("Profile").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: {(snapshot) in
             let snapshotValue = snapshot.value as? NSDictionary
             let name = snapshotValue?["Name"] as? String
             if let skillsArray = snapshotValue?["Pending Requests"] as? NSArray {
@@ -66,7 +68,7 @@ class RequestsPendingTableViewController: UITableViewController {
             print(self.requestsArray)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
             
-            self.databaseRef.child("Profile/\(FIRAuth.auth()!.currentUser!.uid.replacingOccurrences(of: ".com", with: ""))/Pending Requests").setValue(self.requestsArray)
+            self.databaseRef.child("Profile/\(Auth.auth().currentUser!.uid.replacingOccurrences(of: ".com", with: ""))/Pending Requests").setValue(self.requestsArray)
 
         }
         
@@ -81,9 +83,9 @@ class RequestsPendingTableViewController: UITableViewController {
             print(self.approvedRequestsArray)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
             
-            self.databaseRef.child("Profile/\(FIRAuth.auth()!.currentUser!.uid.replacingOccurrences(of: ".com", with: ""))/Pending Requests").setValue(self.requestsArray)
+            self.databaseRef.child("Profile/\(Auth.auth().currentUser!.uid.replacingOccurrences(of: ".com", with: ""))/Pending Requests").setValue(self.requestsArray)
 
-            self.databaseRef.child("Profile/\(FIRAuth.auth()!.currentUser!.uid.replacingOccurrences(of: ".com", with: ""))/Approved Requests").setValue(self.approvedRequestsArray)
+            self.databaseRef.child("Profile/\(Auth.auth().currentUser!.uid.replacingOccurrences(of: ".com", with: ""))/Approved Requests").setValue(self.approvedRequestsArray)
 
 
         }

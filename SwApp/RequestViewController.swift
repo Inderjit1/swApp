@@ -2,7 +2,8 @@
 //  RequestViewController.swift
 //  SwApp
 //
-//  Copyright © 2017 Bassi. All rights reserved.
+//  Created by Casey Reyes on 2/23/18.
+//  Copyright © 2018 Reyes. All rights reserved.
 //
 
 import UIKit
@@ -14,14 +15,14 @@ class RequestViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ref = FIRDatabase.database().reference()
+        ref = Database.database().reference()
         getPendingRequests()
         
     }
     var emails = ""
     func getPendingRequests()
     {
-        self.ref.child("Profile/\(FIRAuth.auth()!.currentUser!.uid)/Pending Requests").observe(.value, with: { (snapshot) in
+        self.ref.child("Profile/\(Auth.auth().currentUser!.uid)/Pending Requests").observe(.value, with: { (snapshot) in
             print(snapshot)
             print(snapshot.childrenCount)
             
@@ -29,7 +30,7 @@ class RequestViewController: UIViewController {
             for children in snapshot.children.allObjects
             {
                 print(children)
-                let snap = children as! FIRDataSnapshot
+                let snap = children as! DataSnapshot
                 //  print("HERE")
                 //  print(snap)
                 //  print(snap.childrenCount)
@@ -51,7 +52,7 @@ class RequestViewController: UIViewController {
         let newlineseparation = separate.characters.split(separator: "\n").map(String.init)
         for values in newlineseparation
         {
-            self.ref.child("Profile/\(FIRAuth.auth()!.currentUser!.uid)/Approved Requests").childByAutoId().setValue(values)//pendingRequests.text)
+            self.ref.child("Profile/\(Auth.auth().currentUser!.uid)/Approved Requests").childByAutoId().setValue(values)//pendingRequests.text)
         }
         
     }
@@ -91,7 +92,7 @@ class RequestViewController: UIViewController {
             
         })
         
-        self.ref.child("Profile/\(FIRAuth.auth()!.currentUser!.uid)/Pending Requests").setValue("")
+        self.ref.child("Profile/\(Auth.auth().currentUser!.uid)/Pending Requests").setValue("")
         
         pendingRequests.text = ""
         
@@ -99,7 +100,7 @@ class RequestViewController: UIViewController {
         
     }
     
-    var ref: FIRDatabaseReference!
+    var ref: DatabaseReference!
     @IBAction func makeRequest(_ sender: Any) {
         self.ref.child("Profile").queryOrdered(byChild: "Email ID").queryEqual(toValue: searchUser.text).observeSingleEvent(of: .value, with: { (snapshot) in
             if (!snapshot.exists())
@@ -124,8 +125,8 @@ class RequestViewController: UIViewController {
                     }
                 }
                 print("What is getkey: \(getkey)")
-                self.ref.child("Profile/\(getkey)/Pending Requests").childByAutoId().setValue(FIRAuth.auth()!.currentUser!.email)
-                self.ref.child("Profile/\(FIRAuth.auth()!.currentUser!.uid)/Sent Requests").setValue(self.searchUser.text)
+                self.ref.child("Profile/\(getkey)/Pending Requests").childByAutoId().setValue(Auth.auth().currentUser!.email)
+                self.ref.child("Profile/\(Auth.auth().currentUser!.uid)/Sent Requests").setValue(self.searchUser.text)
             }
             
         })

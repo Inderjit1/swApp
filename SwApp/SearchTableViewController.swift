@@ -1,8 +1,9 @@
 //
 //  SearchTableViewController.swift
-//  SwApp
 //
-//  Copyright © 2017 Bassi. All rights reserved.
+//
+//  Created by Inderjit Bassi on 2/23/18.
+//  Copyright © 2018 Bassi. All rights reserved.
 //
 
 import UIKit
@@ -10,7 +11,7 @@ import Firebase
 import FirebaseDatabase
 
 class SearchTableViewController: UITableViewController, UISearchResultsUpdating {
-    var loggedInUser: FIRUser?
+    var loggedInUser: User?
     struct Objects {
         var sectionName: String!
         var sectionObjects: [String]!
@@ -25,7 +26,7 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
     var skillsArray = [NSDictionary?]()
     var skillsDict = [String: NSDictionary]()
     @IBOutlet var resultsTableView: UITableView!
-    var databaseRef = FIRDatabase.database().reference()
+    var databaseRef = Database.database().reference()
     var theSkills = [String: Int]()
     var objectsArray = [Objects]()
     var tempObjectsArray = [Objects]()
@@ -44,7 +45,7 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
             for test in snapshot.children.allObjects
             {
                 // Make each one a snapshot
-                let snap = test as! FIRDataSnapshot
+                let snap = test as! DataSnapshot
                 // Extract the fields
                 if let children = snap.value as? [String: AnyObject]
                 {
@@ -224,7 +225,7 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let showUserProfileViewController = segue.destination as! SearchDetailViewController
-        showUserProfileViewController.loggedInUser = self.loggedInUser
+        //showUserProfileViewController.loggedInUser = self.loggedInUser
         
         if let indexPath = tableView.indexPathForSelectedRow{
             if isFiltering(){

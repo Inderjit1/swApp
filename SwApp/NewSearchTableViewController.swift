@@ -2,6 +2,7 @@
 //  NewSearchTableViewController.swift
 //  SwApp
 //
+//  Created by Inderjit Bassi on 3/3/18.
 //  Copyright © 2018 Bassi. All rights reserved.
 //
 
@@ -11,16 +12,16 @@ import FirebaseDatabase
 
 class NewSearchTableViewController: UITableViewController {
 
-    var ref: FIRDatabaseReference!
+    var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ref = FIRDatabase.database().reference()
+        ref = Database.database().reference()
         ref.child("Profile").queryOrdered(byChild: "Skills").observe(.value, with: { (snapshot) in
             
             print(snapshot)
             for item in snapshot.children.allObjects{
-                let snap = item as! FIRDataSnapshot
+                let snap = item as! DataSnapshot
                 if let children = snap.value as? [String:AnyObject]
                 {
                     let name = children["Name"] as! String

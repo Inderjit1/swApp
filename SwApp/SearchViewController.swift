@@ -2,8 +2,8 @@
 //  SearchViewController.swift
 //  SwApp
 //
-//  Created by Bassi on 4/26/17.
-//  Copyright © 2017 Bassi. All rights reserved.
+//  Created by Inderjit Bassi on 2/23/18.
+//  Copyright © 2018 Bassi. All rights reserved.
 //
 
 import UIKit
@@ -16,7 +16,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         displaySearch()
-        ref = FIRDatabase.database().reference()
+        ref = Database.database().reference()
         self.searchBar.delegate = self
         //let userid = FIRAuth.auth()?.currentUser?.uid
         displayResults.isEditable = false
@@ -35,7 +35,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
             {
                 for test in snapshot.children.allObjects // Gets all of the users
                 {
-                    let snap = test as! FIRDataSnapshot // Make each one a snapshot
+                    let snap = test as! DataSnapshot // Make each one a snapshot
                     print(snap)                         // Print each snapshot
                     if let children = snap.value as? [String: AnyObject] // Extract the fields
                     {
@@ -63,7 +63,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var displayResults: UITextView!
     
     var searchresult = ""
-    var ref: FIRDatabaseReference!
+    var ref: DatabaseReference!
     var searchwasfound = false
     
     @IBOutlet weak var searchBar: UITextField!

@@ -2,7 +2,8 @@
 //  AppDelegate.swift
 //  SwApp
 //
-//  Copyright © 2017 Bassi. All rights reserved.
+//  Created by Inderjit Bassi on 2/23/18.
+//  Copyright © 2018 Bassi. All rights reserved.
 //
 
 import UIKit
@@ -17,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool{
         // Override point for customization after application launch.
-        FIRApp.configure()
+        FirebaseApp.configure()
         return true
     }
 

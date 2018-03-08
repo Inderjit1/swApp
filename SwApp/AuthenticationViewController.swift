@@ -2,7 +2,8 @@
 //  AuthenticationViewController.swift
 //  SwApp
 //
-//  Copyright © 2017 Bassi. All rights reserved.
+//  Created by Inderjit Bassi on 2/23/18.
+//  Copyright © 2018 Bassi. All rights reserved.
 //
 
 import UIKit
@@ -14,11 +15,12 @@ class AuthenticationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        ref = FIRDatabase.database().reference()
+        ref = Database.database().reference()
 
     }
 
-    var ref: FIRDatabaseReference!
+    //func ref() -> DatabaseReference!
+    var ref: DatabaseReference!
     @IBAction func confirmSend(_ sender: Any) {
         self.ref.child("Profile").queryOrdered(byChild: "Email ID").queryEqual(toValue: whichUserToRequestFrom.text).observe(.value, with: { (snapshot) in
          if (!snapshot.exists())

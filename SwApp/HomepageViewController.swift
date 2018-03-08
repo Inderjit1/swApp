@@ -2,7 +2,8 @@
 //  HomepageViewController.swift
 //  SwApp
 //
-//  Copyright © 2017 Bassi. All rights reserved.
+//  Created by Inderjit Bassi on 2/23/18.
+//  Copyright © 2018 Bassi. All rights reserved.
 //
 
 import UIKit
@@ -21,10 +22,10 @@ class HomepageViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        ref = FIRDatabase.database().reference()
+        ref = Database.database().reference()
         
         //get profile for current use and info
-        self.ref.child("Profile").child(FIRAuth.auth()!.currentUser!.uid).observeSingleEvent(of: .value, with: {(snapshot) in
+        self.ref.child("Profile").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: {(snapshot) in
             let snapshotValue = snapshot.value as? NSDictionary
             
             let name = snapshotValue?["Name"] as? String
@@ -50,9 +51,9 @@ class HomepageViewController: UIViewController, UITextFieldDelegate {
     //reload info
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        ref = FIRDatabase.database().reference()
+        ref = Database.database().reference()
         
-        self.ref.child("Profile").child(FIRAuth.auth()!.currentUser!.uid).observeSingleEvent(of: .value, with: {(snapshot) in
+        self.ref.child("Profile").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: {(snapshot) in
             let snapshotValue = snapshot.value as? NSDictionary
             
             let name = snapshotValue?["Name"] as? String
@@ -80,13 +81,13 @@ class HomepageViewController: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
     }
     
-    var ref: FIRDatabaseReference!
+    var ref: DatabaseReference!
     
     //log out button
     @IBAction func LogOutButton(_ sender: Any) {
-        if FIRAuth.auth()?.currentUser != nil { // Why do we need to check this?
+        if Auth.auth().currentUser != nil { // Why do we need to check this?
             do{
-                try FIRAuth.auth()?.signOut()
+                try Auth.auth().signOut()
                 let lvc = self.storyboard?.instantiateViewController(withIdentifier: "Home")
                 self.present(lvc!, animated: true, completion: nil)
                 

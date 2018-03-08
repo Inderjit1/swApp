@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="LVx-jO-LOX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="LVx-jO-LOX">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -17,7 +17,7 @@
         <!--Login View Controller-->
         <scene sceneID="R2J-z2-rVl">
             <objects>
-                <viewController storyboardIdentifier="Home" id="LVx-jO-LOX" customClass="LoginViewController" customModule="Favor" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Home" id="LVx-jO-LOX" customClass="LoginViewController" customModule="SwApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="i3S-cL-UBs"/>
                         <viewControllerLayoutGuide type="bottom" id="zx8-xA-6XD"/>
@@ -50,14 +50,7 @@
                                     <action selector="LoginButton:" destination="LVx-jO-LOX" eventType="touchUpInside" id="0aw-Gg-Acw"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Favor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4W0-wE-tdC">
-                                <rect key="frame" x="116" y="99" width="142" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="56"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="FavorLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="fki-OM-qq1">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="FavorLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="fki-OM-qq1" userLabel="SwAppLogo.png">
                                 <rect key="frame" x="126" y="156" width="121" height="121"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -71,6 +64,13 @@
                                     <segue destination="K95-3c-20Z" kind="show" id="bhR-9i-WL2"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SwApp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4W0-wE-tdC">
+                                <rect key="frame" x="85" y="83" width="204" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="56"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0049443328560000001" green="0.56284224989999998" blue="0.53120750049999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -87,7 +87,7 @@
         <!--New User View Controller-->
         <scene sceneID="fBl-Uc-pY2">
             <objects>
-                <viewController id="K95-3c-20Z" customClass="NewUserViewController" customModule="Favor" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="K95-3c-20Z" customClass="NewUserViewController" customModule="SwApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QSR-Kr-Qab"/>
                         <viewControllerLayoutGuide type="bottom" id="KNI-fB-n7Q"/>
@@ -110,13 +110,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Favor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZiV-3X-xSm">
-                                <rect key="frame" x="116" y="99" width="142" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="56"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="FavorLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="vhJ-eb-kCk">
                                 <rect key="frame" x="126" y="156" width="121" height="121"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -149,6 +142,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SwApp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZiV-3X-xSm">
+                                <rect key="frame" x="82" y="69" width="209" height="67"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="56"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.039279584049999997" green="0.70140344020000001" blue="0.92749601599999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -165,7 +165,7 @@
         <!--Home-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="Homepage" id="BYZ-38-t0r" customClass="HomepageViewController" customModule="Favor" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Homepage" id="BYZ-38-t0r" customClass="HomepageViewController" customModule="SwApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -179,7 +179,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Requests"/>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Welcome To Favor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BXg-uK-yha">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Welcome To SwApp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BXg-uK-yha">
                                 <rect key="frame" x="16" y="58" width="343" height="49"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
@@ -252,7 +252,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="About the Creators of Favor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ae2-Q2-GN2">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="About the Creators of SwApp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ae2-Q2-GN2">
                                 <rect key="frame" x="16" y="93" width="319" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Italic" family="Helvetica Neue" pointSize="17"/>
@@ -266,8 +266,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Navjot Bola - San Jose State University senior" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kqv-9a-Rxl">
-                                <rect key="frame" x="4" y="323" width="350" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hedi Moalla - San Jose State University Senior" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kqv-9a-Rxl">
+                                <rect key="frame" x="4" y="323" width="363" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -287,12 +287,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vNI-vz-Zb6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1509.5999999999999" y="1410.9445277361319"/>
+            <point key="canvasLocation" x="1509.5999999999999" y="1410.0449775112445"/>
         </scene>
         <!--Account-->
         <scene sceneID="wrt-wP-AmZ">
             <objects>
-                <viewController id="zUZ-cd-xWF" customClass="AccountViewController" customModule="Favor" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="zUZ-cd-xWF" customClass="AccountViewController" customModule="SwApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IBn-qP-VDt"/>
                         <viewControllerLayoutGuide type="bottom" id="L0v-zq-bem"/>
@@ -393,7 +393,7 @@
         <!--Requests Approved Table View Controller-->
         <scene sceneID="jVG-Tg-y93">
             <objects>
-                <tableViewController id="r8L-ch-8Ru" customClass="RequestsApprovedTableViewController" customModule="Favor" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="r8L-ch-8Ru" customClass="RequestsApprovedTableViewController" customModule="SwApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="zb6-zW-EyA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -421,7 +421,7 @@
         <!--Requests Pending Table View Controller-->
         <scene sceneID="wwp-qr-yWx">
             <objects>
-                <tableViewController id="6RJ-2F-IFm" customClass="RequestsPendingTableViewController" customModule="Favor" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="6RJ-2F-IFm" customClass="RequestsPendingTableViewController" customModule="SwApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ywM-ox-ADm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -449,7 +449,7 @@
         <!--Requesting View Controller-->
         <scene sceneID="ah4-4A-3oF">
             <objects>
-                <viewController id="e0S-eH-DpI" customClass="RequestingViewController" customModule="Favor" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="e0S-eH-DpI" customClass="RequestingViewController" customModule="SwApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kbp-SB-UcI"/>
                         <viewControllerLayoutGuide type="bottom" id="iDV-cj-PQO"/>
@@ -508,7 +508,7 @@
         <!--Search Skills-->
         <scene sceneID="rOg-wv-KZh">
             <objects>
-                <tableViewController id="s4V-ce-s1h" customClass="SearchTableViewController" customModule="Favor" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="s4V-ce-s1h" customClass="SearchTableViewController" customModule="SwApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="fZr-Rs-CaR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -559,7 +559,7 @@
         <!--Search Detail View Controller-->
         <scene sceneID="dNX-me-1B1">
             <objects>
-                <viewController id="auE-3O-lCo" customClass="SearchDetailViewController" customModule="Favor" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="auE-3O-lCo" customClass="SearchDetailViewController" customModule="SwApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ISb-NW-OP7"/>
                         <viewControllerLayoutGuide type="bottom" id="rkY-PZ-M3P"/>
@@ -624,7 +624,7 @@
         <!--New Search Table View Controller-->
         <scene sceneID="Pau-F5-OsV">
             <objects>
-                <tableViewController id="fUM-E7-4xw" customClass="NewSearchTableViewController" customModule="Favor" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="fUM-E7-4xw" customClass="NewSearchTableViewController" customModule="SwApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ojd-g2-1pM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

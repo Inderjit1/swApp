@@ -3,12 +3,18 @@
 
 target 'SwApp' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  xcodeproj 'SwApp.xcodeproj'
   use_frameworks!
 
   # Pods for SwApp
-  pod ‘Firebase/Core’
-  pod ‘Firebase/Auth’
-  pod ‘Firebase/Database’
-  
+  source 'https://github.com/CocoaPods/Specs.git'
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
+  pod 'Firebase/Storage'
+  pod 'Firebase/Analytics'
+   	
+  inherit! :search_paths
+  # Pods for testing
 
 end
