@@ -2,8 +2,8 @@
 //  LoginViewController.swift
 //  SwApp
 //
-//  Created by Bassi on 4/25/17.
-//  Copyright © 2017 Bassi. All rights reserved.
+//  Created by Inderjit Bassi on 2/23/18.
+//  Copyright © 2018 Bassi. All rights reserved.
 //
 
 import UIKit
@@ -21,8 +21,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.PasswordLabel.delegate = self
-        navigationItem.title = "Welcome to Favor!"
-         ref = FIRDatabase.database().reference()
+        navigationItem.title = "Welcome to SwApp!"
+        ref = FIRDatabase.database().reference()
     
 
         // Do any additional setup after loading the view.
@@ -34,6 +34,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     var ref: FIRDatabaseReference!
+   
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         enterButton()

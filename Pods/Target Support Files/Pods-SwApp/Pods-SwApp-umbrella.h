@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_FavorVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_FavorVersionString[];
+FOUNDATION_EXPORT double Pods_SwAppVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_SwAppVersionString[];
 

@@ -2,7 +2,8 @@
 //  RequestViewController.swift
 //  SwApp
 //
-//  Copyright © 2017 Bassi. All rights reserved.
+//  Created by Casey Reyes on 2/23/18.
+//  Copyright © 2018 Reyes. All rights reserved.
 //
 
 import UIKit
@@ -21,7 +22,7 @@ class RequestViewController: UIViewController {
     var emails = ""
     func getPendingRequests()
     {
-        self.ref.child("Profile/\(FIRAuth.auth()!.currentUser!.uid)/Pending Requests").observe(.value, with: { (snapshot) in
+        self.ref.child("Profile/\(FIRAuth.auth()?.currentUser!.uid)/Pending Requests").observe(.value, with: { (snapshot) in
             print(snapshot)
             print(snapshot.childrenCount)
             
@@ -51,7 +52,7 @@ class RequestViewController: UIViewController {
         let newlineseparation = separate.characters.split(separator: "\n").map(String.init)
         for values in newlineseparation
         {
-            self.ref.child("Profile/\(FIRAuth.auth()!.currentUser!.uid)/Approved Requests").childByAutoId().setValue(values)//pendingRequests.text)
+            self.ref.child("Profile/\(FIRAuth.auth()?.currentUser!.uid)/Approved Requests").childByAutoId().setValue(values)//pendingRequests.text)
         }
         
     }
@@ -91,7 +92,7 @@ class RequestViewController: UIViewController {
             
         })
         
-        self.ref.child("Profile/\(FIRAuth.auth()!.currentUser!.uid)/Pending Requests").setValue("")
+        self.ref.child("Profile/\(FIRAuth.auth()?.currentUser!.uid)/Pending Requests").setValue("")
         
         pendingRequests.text = ""
         
@@ -124,8 +125,8 @@ class RequestViewController: UIViewController {
                     }
                 }
                 print("What is getkey: \(getkey)")
-                self.ref.child("Profile/\(getkey)/Pending Requests").childByAutoId().setValue(FIRAuth.auth()!.currentUser!.email)
-                self.ref.child("Profile/\(FIRAuth.auth()!.currentUser!.uid)/Sent Requests").setValue(self.searchUser.text)
+                self.ref.child("Profile/\(getkey)/Pending Requests").childByAutoId().setValue(FIRAuth.auth()?.currentUser!.email)
+                self.ref.child("Profile/\(FIRAuth.auth()?.currentUser!.uid)/Sent Requests").setValue(self.searchUser.text)
             }
             
         })

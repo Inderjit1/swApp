@@ -2,12 +2,14 @@
 //  RequestsApprovedTableViewController.swift
 //  SwApp
 //
-//  Copyright © 2017 Bassi. All rights reserved.
+//  Created by Casey Reyes on 2/23/18.
+//  Copyright © 2018 Reyes. All rights reserved.
 //
 
 import UIKit
 import Firebase
 import FirebaseDatabase
+import FirebaseAuth
 
 class RequestsApprovedTableViewController: UITableViewController {
     var databaseRef = FIRDatabase.database().reference()
@@ -16,7 +18,7 @@ class RequestsApprovedTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("loaded")
-        self.databaseRef.child("Profile").child(FIRAuth.auth()!.currentUser!.uid).observeSingleEvent(of: .value, with: {(snapshot) in
+        self.databaseRef.child("Profile").child((FIRAuth.auth()?.currentUser!.uid)!).observeSingleEvent(of: .value, with: {(snapshot) in
             let snapshotValue = snapshot.value as? NSDictionary
             let name = snapshotValue?["Name"] as? String
             if let skillsArray = snapshotValue?["Approved Requests"] as? NSArray {

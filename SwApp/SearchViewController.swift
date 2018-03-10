@@ -2,8 +2,8 @@
 //  SearchViewController.swift
 //  SwApp
 //
-//  Created by Bassi on 4/26/17.
-//  Copyright © 2017 Bassi. All rights reserved.
+//  Created by Inderjit Bassi on 2/23/18.
+//  Copyright © 2018 Bassi. All rights reserved.
 //
 
 import UIKit

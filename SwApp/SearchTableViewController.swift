@@ -1,8 +1,9 @@
 //
 //  SearchTableViewController.swift
-//  SwApp
 //
-//  Copyright © 2017 Bassi. All rights reserved.
+//
+//  Created by Inderjit Bassi on 2/23/18.
+//  Copyright © 2018 Bassi. All rights reserved.
 //
 
 import UIKit
@@ -224,7 +225,7 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let showUserProfileViewController = segue.destination as! SearchDetailViewController
-        showUserProfileViewController.loggedInUser = self.loggedInUser
+        //showUserProfileViewController.loggedInUser = self.loggedInUser
         
         if let indexPath = tableView.indexPathForSelectedRow{
             if isFiltering(){

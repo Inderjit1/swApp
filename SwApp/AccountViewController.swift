@@ -2,7 +2,8 @@
 //  AccountViewController.swift
 //  SwApp
 //
-//  Copyright © 2017 Bassi. All rights reserved.
+//  Created by Inderjit Bassi on 2/23/18.
+//  Copyright © 2018 Bassi. All rights reserved.
 // 
 
 /********************
@@ -32,7 +33,7 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
         DisplayEmail()
         
         //display skills
-    self.reference.child("Profile").child(FIRAuth.auth()!.currentUser!.uid).observeSingleEvent(of: .value, with: {(snapshot) in
+        self.reference.child("Profile").child((FIRAuth.auth()?.currentUser!.uid)!).observeSingleEvent(of: .value, with: {(snapshot) in
             let snapshotValue = snapshot.value as? NSDictionary
             let name = snapshotValue?["Name"] as? String
         self.NameDisplay.text = name
@@ -83,7 +84,7 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
     //email field
     func DisplayEmail()
     {
-         EmailLabel.text = FIRAuth.auth()?.currentUser?.email
+        EmailLabel.text = FIRAuth.auth()?.currentUser?.email
     }
     
     
@@ -117,7 +118,7 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
                 //ok to add to DB
                 self.theSkills[AddSkillsLabel.text!] = Int(ValueDisplay.text!)
                 print(self.theSkills)
-                self.reference.child("Profile/\(FIRAuth.auth()!.currentUser!.uid.replacingOccurrences(of: ".com", with: ""))/Skills").setValue(self.theSkills)
+                self.reference.child("Profile/\(FIRAuth.auth()?.currentUser!.uid.replacingOccurrences(of: ".com", with: ""))/Skills").setValue(self.theSkills)
                 DisplaySkills()
                 AddSkillsLabel.text = ""
                 ValueDisplay.text = ""

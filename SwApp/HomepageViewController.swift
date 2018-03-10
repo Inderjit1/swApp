@@ -2,7 +2,8 @@
 //  HomepageViewController.swift
 //  SwApp
 //
-//  Copyright © 2017 Bassi. All rights reserved.
+//  Created by Inderjit Bassi on 2/23/18.
+//  Copyright © 2018 Bassi. All rights reserved.
 //
 
 import UIKit
@@ -24,9 +25,9 @@ class HomepageViewController: UIViewController, UITextFieldDelegate {
         ref = FIRDatabase.database().reference()
         
         //get profile for current use and info
-        self.ref.child("Profile").child(FIRAuth.auth()!.currentUser!.uid).observeSingleEvent(of: .value, with: {(snapshot) in
+        self.ref.child("Profile").child((FIRAuth.auth()?.currentUser!.uid)!).observeSingleEvent(of: .value, with: {(snapshot) in
             let snapshotValue = snapshot.value as? NSDictionary
-            
+            DispatchQueue.main.async{
             let name = snapshotValue?["Name"] as? String
             self.theName = name!
             self.displayNameLabel?.text = "Hello \(self.theName)"
@@ -34,7 +35,7 @@ class HomepageViewController: UIViewController, UITextFieldDelegate {
             let points = snapshotValue?["Points"] as? Int
             self.thePoints = points!
             self.pointsLabel?.text = "\(self.thePoints) points remaining"
-
+            }
             if let skillsArray = snapshotValue?["Approved Requests"] as? NSArray {
                 self.requestsArray = skillsArray as! [String]
                 print(self.requestsArray.count)
@@ -52,17 +53,18 @@ class HomepageViewController: UIViewController, UITextFieldDelegate {
         super.viewWillAppear(animated)
         ref = FIRDatabase.database().reference()
         
-        self.ref.child("Profile").child(FIRAuth.auth()!.currentUser!.uid).observeSingleEvent(of: .value, with: {(snapshot) in
+        self.ref.child("Profile").child((FIRAuth.auth()?.currentUser!.uid)!).observeSingleEvent(of: .value, with: {(snapshot) in
             let snapshotValue = snapshot.value as? NSDictionary
             
             let name = snapshotValue?["Name"] as? String
+            DispatchQueue.main.async{
             self.theName = name!
             self.displayNameLabel?.text = "Hello \(self.theName)"
             
             let points = snapshotValue?["Points"] as? Int
             self.thePoints = points!
             self.pointsLabel?.text = "\(self.thePoints) points remaining"
-            
+            }
             if let skillsArray = snapshotValue?["Approved Requests"] as? NSArray {
                 self.requestsArray = skillsArray as! [String]
                 print(self.requestsArray.count)
@@ -82,6 +84,7 @@ class HomepageViewController: UIViewController, UITextFieldDelegate {
     
     var ref: FIRDatabaseReference!
     
+ 
     //log out button
     @IBAction func LogOutButton(_ sender: Any) {
         if FIRAuth.auth()?.currentUser != nil { // Why do we need to check this?

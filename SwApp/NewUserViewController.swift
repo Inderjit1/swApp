@@ -2,7 +2,8 @@
 //  NewUserViewController.swift
 //  SwApp
 //
-//  Copyright © 2017 Bassi. All rights reserved.
+//  Created by Hedi Moalla on 2/23/18.
+//  Copyright © 2018 Moalla. All rights reserved.
 //
 
 import UIKit
@@ -70,7 +71,7 @@ class NewUserViewController: UIViewController, UITextFieldDelegate {
                 {
                     print("The sign-up was successful!\n")
                     user?.sendEmailVerification(completion: nil)
-                    self.ref.child("Profile/\(FIRAuth.auth()!.currentUser!.uid)").setValue(["Name" : "\(self.nameLabel.text!)", "Email ID":FIRAuth.auth()?.currentUser?.email, "Skills": "", "Points" : 50, "Pending Requests" : "", "Approved Requests": "", "Sent Requests" : ""])
+                    self.ref.child("Profile/\(FIRAuth.auth()?.currentUser!.uid)").setValue(["Name" : "\(self.nameLabel.text!)", "Email ID":FIRAuth.auth()?.currentUser?.email, "Skills": "", "Points" : 50, "Pending Requests" : "", "Approved Requests": "", "Sent Requests" : ""])
                     self.performSegue(withIdentifier: "createdUser", sender: self)
                 }
                 else

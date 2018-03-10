@@ -2,7 +2,8 @@
 //  RequestingViewController.swift
 //  SwApp
 //
-//  Copyright © 2017 Bassi. All rights reserved.
+//  Created by Hedi Moalla on 2/23/18.
+//  Copyright © 2018 Moalla. All rights reserved.
 //
 
 import UIKit
