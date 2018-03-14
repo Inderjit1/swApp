@@ -43,9 +43,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		00AB7C8F2058EE7100BDE173 /* SwApp 1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SwApp 1x.png"; path = "../../../../Desktop/SwApp/SwApp 1x.png"; sourceTree = "<group>"; };
-		00AB7C902058EE7100BDE173 /* SwApp 3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SwApp 3x.png"; path = "../../../../Desktop/SwApp/SwApp 3x.png"; sourceTree = "<group>"; };
-		00AB7C912058EE7100BDE173 /* SwApp 2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SwApp 2x.png"; path = "../../../../Desktop/SwApp/SwApp 2x.png"; sourceTree = "<group>"; };
+		00AB7C8F2058EE7100BDE173 /* SwApp 1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SwApp 1x.png"; sourceTree = "<group>"; };
+		00AB7C902058EE7100BDE173 /* SwApp 3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SwApp 3x.png"; sourceTree = "<group>"; };
+		00AB7C912058EE7100BDE173 /* SwApp 2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SwApp 2x.png"; sourceTree = "<group>"; };
 		1B507BF81EC8B4EB008923F4 /* SwAppLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SwAppLogo.png; sourceTree = "<group>"; };
 		1B507BFA1EC8BA50008923F4 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		1B507BFC1EC9694C008923F4 /* home-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-7.png"; sourceTree = "<group>"; };
