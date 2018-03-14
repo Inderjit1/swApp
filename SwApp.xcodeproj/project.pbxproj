@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00AB7C922058EE7100BDE173 /* SwApp 1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00AB7C8F2058EE7100BDE173 /* SwApp 1x.png */; };
+		00AB7C932058EE7100BDE173 /* SwApp 3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00AB7C902058EE7100BDE173 /* SwApp 3x.png */; };
+		00AB7C942058EE7100BDE173 /* SwApp 2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00AB7C912058EE7100BDE173 /* SwApp 2x.png */; };
 		1B507BF91EC8B4EB008923F4 /* SwAppLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B507BF81EC8B4EB008923F4 /* SwAppLogo.png */; };
 		1B507BFB1EC8BA50008923F4 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B507BFA1EC8BA50008923F4 /* SearchTableViewController.swift */; };
 		1B507BFD1EC9694C008923F4 /* home-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B507BFC1EC9694C008923F4 /* home-7.png */; };
@@ -22,7 +25,7 @@
 		1BDA75961ECA7E1B006CD2D1 /* man-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BDA75951ECA7E1B006CD2D1 /* man-7.png */; };
 		1BDA75981ECA9F6B006CD2D1 /* icomoon-free_2014-12-23_coin-dollar_159_0_f1c40f_none.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BDA75971ECA9F6B006CD2D1 /* icomoon-free_2014-12-23_coin-dollar_159_0_f1c40f_none.png */; };
 		1BDA759A1ECA9FF0006CD2D1 /* ionicons_2-0-1_ios-person_159_0_3498db_none.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BDA75991ECA9FF0006CD2D1 /* ionicons_2-0-1_ios-person_159_0_3498db_none.png */; };
-		75B1C16A817334A086EDF4C6 /* Pods_SwApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D4A9E26A15A8370BEBB31E /* Pods_SwApp.framework */; };
+		75B1C16A817334A086EDF4C6 /* Pods_SwApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D4A9E26A15A8370BEBB31E /* Pods_SwApp.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		9D89D07C204FBCF600CC8363 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D89D07B204FBCF600CC8363 /* GoogleService-Info.plist */; };
 		C00473AB1EB00886001F1FD7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00473AA1EB00886001F1FD7 /* LoginViewController.swift */; };
 		C0BD5C421EA486EC0046F5B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BD5C411EA486EC0046F5B4 /* AppDelegate.swift */; };
@@ -40,6 +43,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00AB7C8F2058EE7100BDE173 /* SwApp 1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SwApp 1x.png"; path = "../../../../Desktop/SwApp/SwApp 1x.png"; sourceTree = "<group>"; };
+		00AB7C902058EE7100BDE173 /* SwApp 3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SwApp 3x.png"; path = "../../../../Desktop/SwApp/SwApp 3x.png"; sourceTree = "<group>"; };
+		00AB7C912058EE7100BDE173 /* SwApp 2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SwApp 2x.png"; path = "../../../../Desktop/SwApp/SwApp 2x.png"; sourceTree = "<group>"; };
 		1B507BF81EC8B4EB008923F4 /* SwAppLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SwAppLogo.png; sourceTree = "<group>"; };
 		1B507BFA1EC8BA50008923F4 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		1B507BFC1EC9694C008923F4 /* home-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-7.png"; sourceTree = "<group>"; };
@@ -128,6 +134,9 @@
 				1B507C061EC969FD008923F4 /* ruler-7.png */,
 				1BDA75971ECA9F6B006CD2D1 /* icomoon-free_2014-12-23_coin-dollar_159_0_f1c40f_none.png */,
 				1BDA75991ECA9FF0006CD2D1 /* ionicons_2-0-1_ios-person_159_0_3498db_none.png */,
+				00AB7C8F2058EE7100BDE173 /* SwApp 1x.png */,
+				00AB7C912058EE7100BDE173 /* SwApp 2x.png */,
+				00AB7C902058EE7100BDE173 /* SwApp 3x.png */,
 				C0BD5C411EA486EC0046F5B4 /* AppDelegate.swift */,
 				C0BD5C431EA486EC0046F5B4 /* ViewController.swift */,
 				C00473AA1EB00886001F1FD7 /* LoginViewController.swift */,
@@ -195,7 +204,6 @@
 				TargetAttributes = {
 					C0BD5C3D1EA486EC0046F5B4 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = VJ34NY7865;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -225,11 +233,14 @@
 			files = (
 				1BDA75961ECA7E1B006CD2D1 /* man-7.png in Resources */,
 				1B507BFD1EC9694C008923F4 /* home-7.png in Resources */,
+				00AB7C942058EE7100BDE173 /* SwApp 2x.png in Resources */,
 				C0BD5C4C1EA486ED0046F5B4 /* LaunchScreen.storyboard in Resources */,
 				1BDA759A1ECA9FF0006CD2D1 /* ionicons_2-0-1_ios-person_159_0_3498db_none.png in Resources */,
 				C0E060FE1EB9526600A685D4 /* Main.storyboard in Resources */,
+				00AB7C932058EE7100BDE173 /* SwApp 3x.png in Resources */,
 				1B507C071EC969FD008923F4 /* ruler-7.png in Resources */,
 				1B507C011EC9699C008923F4 /* spanner-7.png in Resources */,
+				00AB7C922058EE7100BDE173 /* SwApp 1x.png in Resources */,
 				1B507BFF1EC96971008923F4 /* search-7.png in Resources */,
 				1B507C051EC969C7008923F4 /* message-7.png in Resources */,
 				1BDA75981ECA9F6B006CD2D1 /* icomoon-free_2014-12-23_coin-dollar_159_0_f1c40f_none.png in Resources */,
@@ -437,9 +448,10 @@
 			baseConfigurationReference = 30D120F87C96A5C00DD7F1ED /* Pods-SwApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = VJ34NY7865;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = SwApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Project.SwApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -452,9 +464,10 @@
 			baseConfigurationReference = E4F5CBB93EEEF5CFC3FED3B8 /* Pods-SwApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = VJ34NY7865;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = SwApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Project.SwApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
