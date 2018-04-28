@@ -1,6 +1,0 @@
-framework module Pods_SwApp {
-  umbrella header "Pods-SwApp-umbrella.h"
-
-  export *
-  module * { export * }
-}
