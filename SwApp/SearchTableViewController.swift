@@ -11,7 +11,7 @@ import Firebase
 import FirebaseDatabase
 
 class SearchTableViewController: UITableViewController, UISearchResultsUpdating {
-    var loggedInUser: FIRUser?
+    var loggedInUser: User?
     struct Objects {
         var sectionName: String!
         var sectionObjects: [String]!
@@ -26,7 +26,7 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
     var skillsArray = [NSDictionary?]()
     var skillsDict = [String: NSDictionary]()
     @IBOutlet var resultsTableView: UITableView!
-    var databaseRef = FIRDatabase.database().reference()
+    var databaseRef = Database.database().reference()
     var theSkills = [String: Int]()
     var objectsArray = [Objects]()
     var tempObjectsArray = [Objects]()
@@ -39,13 +39,15 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 51/255, green: 90/255, blue: 149/255, alpha:1)
         
         databaseRef.child("Profile").queryOrdered(byChild: "Skills").observe(.value, with: {(snapshot) in
             var count = 0;
             for test in snapshot.children.allObjects
             {
                 // Make each one a snapshot
-                let snap = test as! FIRDataSnapshot
+                let snap = test as! DataSnapshot
                 // Extract the fields
                 if let children = snap.value as? [String: AnyObject]
                 {
@@ -63,6 +65,7 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
                                 String($0)
                             }
                         self.objectsArray.append(Objects(sectionName: name, sectionObjects: stringArray, cost: stringArray3, email: email))
+                        
                         //print(skillsArray)
                         //print("-------")
                         for(key, element) in skillsArray {
@@ -77,7 +80,7 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
                        //     print(aSkill)
                         }
                     }
-                    print(self.objectsArray)
+                    //print(self.objectsArray)
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
@@ -132,9 +135,9 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
         if isFiltering(){
            
             //allobjects = filteredUsers[indexPath.row]
-            print("ISFILTERING")
-            print("The section number is: \(indexPath.section)")
-            print("The row number is: \(indexPath.row)")
+           // print("ISFILTERING")
+           // print("The section number is: \(indexPath.section)")
+           // print("The row number is: \(indexPath.row)")
             
             //print(indexPath.section)
             //cell.textLabel?.text = filteredUsers[indexPath.row].sectionObjects
@@ -142,9 +145,9 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
             cell.detailTextLabel?.text = filteredUsers[indexPath.section].cost[indexPath.row]
         }
         else{
-            print("ISNOTFILTERING")
-            print("The section number is: \(indexPath.section)")
-            print("The row number is: \(indexPath.row)")
+           // print("ISNOTFILTERING")
+           // print("The section number is: \(indexPath.section)")
+           // print("The row number is: \(indexPath.row)")
             
             allobjects = objectsArray[indexPath.row]
             cell.textLabel?.text = objectsArray[indexPath.section].sectionObjects[indexPath.row]
@@ -203,9 +206,9 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
             })*/
         
         
-        print("WHAT ARE THE FILTERED USERS")
+        //print("WHAT ARE THE FILTERED USERS")
         for user in filteredUsers{
-            print(user.sectionName)
+            //print(user.sectionName)
         }
         
         

@@ -12,13 +12,13 @@ import FirebaseDatabase
 import FirebaseAuth
 
 class RequestsApprovedTableViewController: UITableViewController {
-    var databaseRef = FIRDatabase.database().reference()
+    var databaseRef = Database.database().reference()
     var requestsArray = [String]()
     var requestsArray2 = ["email1", "email2"]
     override func viewDidLoad() {
         super.viewDidLoad()
         print("loaded")
-        self.databaseRef.child("Profile").child((FIRAuth.auth()?.currentUser!.uid)!).observeSingleEvent(of: .value, with: {(snapshot) in
+        self.databaseRef.child("Profile").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: {(snapshot) in
             let snapshotValue = snapshot.value as? NSDictionary
             let name = snapshotValue?["Name"] as? String
             if let skillsArray = snapshotValue?["Approved Requests"] as? NSArray {

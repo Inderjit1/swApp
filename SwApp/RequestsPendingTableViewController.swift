@@ -12,16 +12,21 @@ import FirebaseDatabase
 import FirebaseAuth
 
 class RequestsPendingTableViewController: UITableViewController {
-    var databaseRef = FIRDatabase.database().reference()
+    var databaseRef = Database.database().reference()
     var requestsArray = [String]()
     var approvedRequestsArray = [String]()
+    var getkey: String = ""
+    var pointsHolder: Int = 0
+    var loggedinuserPoints: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("loaded")
-        self.databaseRef.child("Profile").child((FIRAuth.auth()?.currentUser!.uid)!).observeSingleEvent(of: .value, with: {(snapshot) in
+        self.databaseRef.child("Profile").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: {(snapshot) in
             let snapshotValue = snapshot.value as? NSDictionary
             let name = snapshotValue?["Name"] as? String
+            let points = snapshotValue?["Points"] as? Int
+            self.loggedinuserPoints = points!
             if let skillsArray = snapshotValue?["Pending Requests"] as? NSArray {
                 self.requestsArray = skillsArray as! [String]
                 print(self.requestsArray)
@@ -59,40 +64,84 @@ class RequestsPendingTableViewController: UITableViewController {
         return cell!
     }
     
+    func acceptPointsFromUser(email: String, pointstoreturn: Int){
+        self.databaseRef.child("Profile").queryOrdered(byChild: "Email ID").queryEqual(toValue: email).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            print("\nINSIDE RETURN POINTS")
+            for index in snapshot.children.allObjects
+            {
+                let snap = index as! DataSnapshot
+                if let children = snap.value as? [String: AnyObject]
+                {
+                    let points = children["Points"] as! Int
+                    print("\nWhat is the old guys points \(points)")
+                    self.pointsHolder = points
+                }
+            }
+            
+            if let test = snapshot.value as? [String: AnyObject] // Get the snapshot as a dictionary
+            {
+                for (key, value) in test
+                {
+                    self.getkey = key
+                }
+            }
+            
+            //Deduct Points From the user requesting the skill
+            self.databaseRef.child("Profile/\(self.getkey)").updateChildValues(["Points" : self.pointsHolder -  pointstoreturn])
+       
+            // Add the points to the user who is accepting the skill
+            self.databaseRef.child("Profile").child(Auth.auth().currentUser!.uid).updateChildValues(["Points": self.loggedinuserPoints + pointstoreturn])
+        })
+    }
+    
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        //approve button
-        let approve = UITableViewRowAction(style: .destructive, title: "Decline") { (action, indexPath) in
+        //decline button
+        let decline = UITableViewRowAction(style: .destructive, title: "Decline") { (action, indexPath) in
             print("Decline")
-            var thisEmail = self.requestsArray[indexPath.row]
+            let thisEmail = self.requestsArray[indexPath.row]
             self.requestsArray.remove(at: indexPath.row)
             print(self.requestsArray)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
             
-            self.databaseRef.child("Profile/\(FIRAuth.auth()?.currentUser!.uid.replacingOccurrences(of: ".com", with: ""))/Pending Requests").setValue(self.requestsArray)
+            self.databaseRef.child("Profile/\(Auth.auth().currentUser!.uid.replacingOccurrences(of: ".com", with: ""))/Pending Requests").setValue(self.requestsArray)
 
         }
         
         
-        //decline button
-        let decline = UITableViewRowAction(style: .normal, title: "Approve") { (action, indexPath) in
+        //approve button
+        let approve = UITableViewRowAction(style: .normal, title: "Approve") { (action, indexPath) in
             print("Approve")
             var thisEmail = self.requestsArray[indexPath.row]
+            
+            print("\n\nthisEmail is\n\n")
+            print(thisEmail)
+            let getResult = thisEmail.split(separator:"-")
+            let getEmailResult = getResult[1].split(separator:" ") // Gets the Email
+            print("Email of returned user is")
+            print(getEmailResult[0])
+            
+            let pointvalue = Int(thisEmail.components(separatedBy: CharacterSet.decimalDigits.inverted).joined())
+            self.acceptPointsFromUser(email: String(getEmailResult[0]), pointstoreturn: pointvalue!)
+            
+            
             self.requestsArray.remove(at: indexPath.row)
             print(self.requestsArray)
             self.approvedRequestsArray.append(thisEmail)
             print(self.approvedRequestsArray)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
             
-            self.databaseRef.child("Profile/\(FIRAuth.auth()?.currentUser!.uid.replacingOccurrences(of: ".com", with: ""))/Pending Requests").setValue(self.requestsArray)
+            self.databaseRef.child("Profile/\(Auth.auth().currentUser!.uid.replacingOccurrences(of: ".com", with: ""))/Pending Requests").setValue(self.requestsArray)
 
-            self.databaseRef.child("Profile/\(FIRAuth.auth()?.currentUser!.uid.replacingOccurrences(of: ".com", with: ""))/Approved Requests").setValue(self.approvedRequestsArray)
+            self.databaseRef.child("Profile/\(Auth.auth().currentUser!.uid.replacingOccurrences(of: ".com", with: ""))/Approved Requests").setValue(self.approvedRequestsArray)
 
 
         }
         
+        approve.backgroundColor = UIColor.red
         decline.backgroundColor = UIColor.blue
         
-        return [approve, decline]
+        return [decline, approve]
     }
 
 }

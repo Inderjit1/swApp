@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/Bassi/Desktop/CODE/swApp/SwApp/HomepageCollectionViewController.swift">
+   </FileRef>
+   <FileRef
       location = "group:SwApp.xcodeproj">
    </FileRef>
    <FileRef

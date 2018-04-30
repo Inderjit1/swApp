@@ -15,12 +15,12 @@ class AuthenticationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        ref = FIRDatabase.database().reference()
+        ref = Database.database().reference()
 
     }
 
     //func ref() -> DatabaseReference!
-    var ref: FIRDatabaseReference!
+    var ref: DatabaseReference!
     @IBAction func confirmSend(_ sender: Any) {
         self.ref.child("Profile").queryOrdered(byChild: "Email ID").queryEqual(toValue: whichUserToRequestFrom.text).observe(.value, with: { (snapshot) in
          if (!snapshot.exists())

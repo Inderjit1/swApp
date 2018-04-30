@@ -21,19 +21,22 @@ import FirebaseDatabase
 
 class AccountViewController: UIViewController, UITextFieldDelegate {
     var theSkills = [String: Int]()
+    var thePoints = 0
+    var requestsArray = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.AddSkillsLabel.delegate = self
+       self.AddSkillsLabel.delegate = self
         navigationItem.title = "My Account"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 51/255, green: 90/255, blue: 149/255, alpha:1)
        
         print(AccountViewController.holdskills)
      
-      
-        reference = FIRDatabase.database().reference()
+        reference = Database.database().reference()
         DisplayEmail()
-        
         //display skills
-        self.reference.child("Profile").child((FIRAuth.auth()?.currentUser!.uid)!).observeSingleEvent(of: .value, with: {(snapshot) in
+    self.reference.child("Profile").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: {(snapshot) in
             let snapshotValue = snapshot.value as? NSDictionary
             let name = snapshotValue?["Name"] as? String
         self.NameDisplay.text = name
@@ -45,7 +48,23 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
                 print("cannot unwrap")
             }
         })
-
+        
+    self.reference.child("Profile").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: {(snapshot) in
+            let snapshotValue = snapshot.value as? NSDictionary
+            let points = snapshotValue?["Points"] as? Int
+            self.thePoints = points!
+        self.pointLabel?.text = "\(self.thePoints) points remaining"
+            
+            if let skillsArray = snapshotValue?["Approved Requests"] as? NSArray {
+                self.requestsArray = skillsArray as! [String]
+                print(self.requestsArray.count)
+                self.requestsLabel?.text = "\(self.requestsArray.count) requests made"
+            } else {
+                print("cannot unwrap")
+                self.requestsLabel?.text = "0 requests made"
+            }
+            
+        })
     }
     
 
@@ -55,7 +74,7 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
     }
     
     var text = ""
-    var reference: FIRDatabaseReference!
+    var reference: DatabaseReference!
     
     
     
@@ -69,6 +88,10 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var SkillsDisplay: UITextView!
     @IBOutlet weak var ValueDisplay: UITextField!
     @IBOutlet weak var NameDisplay: UILabel!
+    
+    @IBOutlet weak var pointLabel: UILabel!
+    @IBOutlet weak var requestsLabel: UILabel!
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         enterSkill()
         return true
@@ -84,7 +107,7 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
     //email field
     func DisplayEmail()
     {
-        EmailLabel.text = FIRAuth.auth()?.currentUser?.email
+         EmailLabel.text = Auth.auth().currentUser?.email
     }
     
     
@@ -118,7 +141,7 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
                 //ok to add to DB
                 self.theSkills[AddSkillsLabel.text!] = Int(ValueDisplay.text!)
                 print(self.theSkills)
-                self.reference.child("Profile/\(FIRAuth.auth()?.currentUser!.uid.replacingOccurrences(of: ".com", with: ""))/Skills").setValue(self.theSkills)
+                self.reference.child("Profile/\(Auth.auth().currentUser!.uid.replacingOccurrences(of: ".com", with: ""))/Skills").setValue(self.theSkills)
                 DisplaySkills()
                 AddSkillsLabel.text = ""
                 ValueDisplay.text = ""

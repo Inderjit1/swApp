@@ -12,13 +12,17 @@ import FirebaseDatabase
 import FirebaseAuth
 
 class SearchDetailViewController: UIViewController {
-    var databaseRef = FIRDatabase.database().reference()
+    var databaseRef = Database.database().reference()
     var requestsArray = [String]()
+    
+    var otherUsersRequestsArray = [String]()
 
     @IBOutlet weak var showUser: UILabel!
     //var loggedInUser: FIRUser?
-    var loggedInUserCost: Int!
-    var loggedInUserEmail: Int!
+
+    var loggedInUserEmail: String!
+    var loggedInUserName: String!
+    
     var otherUserSkill: String!
     var otherUserEmail: String!
     var otherUserCost: String!
@@ -31,14 +35,22 @@ class SearchDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         showUser?.text = otherUserName
+        print("Other user's Email:")
+        print(otherUserEmail)
         skillLabel?.text = "is offering skill " +  otherUserSkill + " for " + otherUserCost + " points"
 
-        self.databaseRef.child("Profile").child((FIRAuth.auth()?.currentUser!.uid)!).observeSingleEvent(of: .value, with: {(snapshot) in
+        self.databaseRef.child("Profile").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: {(snapshot) in
             let snapshotValue = snapshot.value as? NSDictionary
+            print("What does it even look like?")
+            print(snapshotValue)
             let name = snapshotValue?["Name"] as? String
+            self.loggedInUserName = name
             let points = snapshotValue?["Points"] as? Int
             self.thePoints = points!
+            let email = snapshotValue?["Email ID"] as? String
+            self.loggedInUserEmail = email
             if let skillsArray = snapshotValue?["Pending Requests"] as? NSArray {
+                print("DOES THIS ARAY WORK")
                 self.requestsArray = skillsArray as! [String]
                 print(self.requestsArray)
             } else {
@@ -55,53 +67,87 @@ class SearchDetailViewController: UIViewController {
     }
     @IBAction func requestButton(_ sender: Any) {
         
-        //extract uuid that matches email
-        self.databaseRef.child("Profile").queryOrdered(byChild: "Email ID").queryEqual(toValue: otherUserEmail).observeSingleEvent(of: .value, with: { (snapshot) in
-            if (!snapshot.exists())
-            {
+        if thePoints < Int(otherUserCost)!
+        {
+            let alert = UIAlertController(title: "Error", message: "You don't have enough points for this transaction", preferredStyle: UIAlertControllerStyle.alert)
+            let defaultaction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil)
+            alert.addAction(defaultaction)
+            self.present(alert, animated: true, completion: nil)
+        }
+        else{
+            //extract uuid that matches email
+            self.databaseRef.child("Profile").queryOrdered(byChild: "Email ID").queryEqual(toValue: otherUserEmail).observeSingleEvent(of: .value, with: { (snapshot) in
                 
-                let emailIDAlertController = UIAlertController(title: "Error", message: "That email does not exist or was incorrectly entered", preferredStyle: .alert)
-            }
-            else
-            {
-                if let test = snapshot.value as? [String: AnyObject] // Get the snapshot as a dictionary
+                print("\n\n\n\nUser's Email:")
+                print(self.otherUserEmail)
+                print("\n\n")
+                if (!snapshot.exists())
                 {
-                    for (key, value) in test
-                    {
-                        self.getkey = key
-                    }
+                    
+                    let emailIDAlertController = UIAlertController(title: "Error", message: "That email does not exist or was incorrectly entered", preferredStyle: .alert)
                 }
-            
-                //update array of pending requests in DB
-                self.requestsArray.append(self.otherUserEmail)
-                self.databaseRef.child("Profile/\(self.getkey.replacingOccurrences(of: ".com", with: ""))/Pending Requests").setValue(self.requestsArray)
-                
-                
-                //get points from otherUser
-                self.databaseRef.child("Profile").child(self.getkey).observeSingleEvent(of: .value, with: {(snapshot) in
-                    let snapshotValue = snapshot.value as? NSDictionary
+                else
+                {
+                    for index in snapshot.children.allObjects
+                    {
+                        let snap = index as! DataSnapshot
+                        if let children = snap.value as? [String: AnyObject]
+                        {
+                            if let skillsArray = children["Pending Requests"] as? NSArray {
+                                self.otherUsersRequestsArray = skillsArray as! [String]
+                                print("EXPAND")
+                                print(self.requestsArray)
+                            } else {
+                                print("Cannot unwrap")
+                            }
+                        }
+                    }
                     
-                    let points = snapshotValue?["Points"] as? Int
-                    self.theOtherUsersPoints = points!
+                    if let test = snapshot.value as? [String: AnyObject] // Get the snapshot as a dictionary
+                    {
+                        for (key, value) in test
+                        {
+                            self.getkey = key
+                        }
+                    }
                     
-                    //update other users points
-                    let newOtherPoints = self.theOtherUsersPoints + Int(self.otherUserCost)!
-                    print("******")
-                    print(self.theOtherUsersPoints)
-                    print(newOtherPoints)
-                    print("******")
-                    self.databaseRef.child("Profile/\(self.getkey.replacingOccurrences(of: ".com", with: ""))/Points").setValue(newOtherPoints)
-                })
+                    //update array of pending requests in DB
+                    
+                    self.otherUsersRequestsArray.append(self.loggedInUserName + "-" + self.loggedInUserEmail +
+                        " (\(self.otherUserSkill!) for \(self.otherUserCost!) points)")
+                    print("The person that is stored in the database")
+                    print(self.loggedInUserName + "-" + self.loggedInUserEmail)
+                    self.databaseRef.child("Profile/\(self.getkey)").updateChildValues(["Pending Requests" : self.otherUsersRequestsArray])
+                    
+                    /*
+                     //get points from otherUser
+                     self.databaseRef.child("Profile").child(self.getkey).observeSingleEvent(of: .value, with: {(snapshot) in
+                     let snapshotValue = snapshot.value as? NSDictionary
+                     
+                     let points = snapshotValue?["Points"] as? Int
+                     self.theOtherUsersPoints = points!
+                     
+                     //update other users points
+                     let newOtherPoints = self.theOtherUsersPoints + Int(self.otherUserCost)!
+                     print("******")
+                     print(self.theOtherUsersPoints)
+                     print(newOtherPoints)
+                     print("******")
+                     self.databaseRef.child("Profile/\(self.getkey.replacingOccurrences(of: ".com", with: ""))/Points").setValue(newOtherPoints)
+                     })
+                     
+                     //modify points
+                     let newPoints = self.thePoints - Int(self.otherUserCost)!
+                     
+                     //update current user points
+                     self.databaseRef.child("Profile/\(Auth.auth().currentUser!.uid.replacingOccurrences(of: ".com", with: ""))/Points").setValue(newPoints)
+                     */
+                }
                 
-                //modify points
-                let newPoints = self.thePoints - Int(self.otherUserCost)!
-                
-                //update current user points
-                self.databaseRef.child("Profile/\(FIRAuth.auth()?.currentUser!.uid.replacingOccurrences(of: ".com", with: ""))/Points").setValue(newPoints)
-            }
+            })
             
-        })
-
-    }
-    
+        }
+            
+        }
+        
 }

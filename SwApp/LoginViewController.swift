@@ -22,7 +22,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         self.PasswordLabel.delegate = self
         navigationItem.title = "Welcome to SwApp!"
-        ref = FIRDatabase.database().reference()
+         ref = Database.database().reference()
     
 
         // Do any additional setup after loading the view.
@@ -33,8 +33,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    var ref: FIRDatabaseReference!
-   
+    var ref: DatabaseReference!
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         enterButton()
@@ -82,7 +81,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }*/
             
             //call firebase
-            FIRAuth.auth()?.signIn(withEmail: LoginIDLabel.text!, password: PasswordLabel.text!) { (user, error) in
+            Auth.auth().signIn(withEmail: LoginIDLabel.text!, password: PasswordLabel.text!) { (user, error) in
                 if error == nil
                 {
                     print("Successfully logged in\n")

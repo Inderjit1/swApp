@@ -19,7 +19,7 @@ class NewUserViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         navigationItem.title = "New User Account"
         self.PasswordLabel.delegate = self
-        ref = FIRDatabase.database().reference()
+        ref = Database.database().reference()
         
     }
 
@@ -28,11 +28,14 @@ class NewUserViewController: UIViewController, UITextFieldDelegate {
     //var ref: FIRDatabaseReference!
     @IBOutlet weak var UserIDLabel: UITextField!
     @IBOutlet weak var PasswordLabel: UITextField!
+    @IBOutlet weak var skillsLabel: UITextField!
     
+    @IBOutlet weak var costLabel: UITextField!
     @IBOutlet weak var nameLabel: UITextField!
+    @IBOutlet weak var skillDisplay: UITextView!
     
    // @IBOutlet weak var skillsLabel: UITextField!
-    var ref: FIRDatabaseReference!
+    var ref: DatabaseReference!
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         enterAccount()
@@ -44,6 +47,22 @@ class NewUserViewController: UIViewController, UITextFieldDelegate {
         Work(self)
     }
     
+    // add button
+    func enterAddButton(){
+        AddSkillsButton(self)
+    }
+    
+    //display skills
+    func DisplaySkills(){
+        skillDisplay.text = ""
+        for(key, element) in self.theSkills {
+            print(key)
+            print(element)
+            var displayElement = "\(key) : \(element) points"
+            skillDisplay.text = skillDisplay.text! + displayElement + "\n"
+        }
+    }
+    
  
     func displayErrorMessage(alertController:UIAlertController){
         let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -51,6 +70,26 @@ class NewUserViewController: UIViewController, UITextFieldDelegate {
         present(alertController, animated: true, completion: nil)
     }
     
+    @IBAction func AddSkillsButton(_ sender: Any) {
+        for characters in (skillsLabel.text?.characters)!
+        {
+            if(skillsLabel.text != "" && !(characters < "a") && !(characters > "z"))
+            {
+                if(costLabel.text != "" && !(characters < "a") && !(characters > "z")){
+                    acceptable = true
+                }
+            }
+        }
+        
+        if(acceptable)
+        {
+            self.theSkills[skillsLabel.text!] = Int(costLabel.text!)
+            print(self.theSkills)
+            DisplaySkills()
+            skillsLabel.text = ""
+            costLabel.text = ""
+        }
+    }
     //function for add
     @IBAction func Work(_ sender: AnyObject) {
         
@@ -66,12 +105,12 @@ class NewUserViewController: UIViewController, UITextFieldDelegate {
             let alertController = UIAlertController(title: "Error", message: "Please enter a valid school email", preferredStyle: .alert)
             displayErrorMessage(alertController: alertController)
         default:
-            FIRAuth.auth()?.createUser(withEmail: UserIDLabel.text!, password: PasswordLabel.text!) {(user, error) in
+            Auth.auth().createUser(withEmail: UserIDLabel.text!, password: PasswordLabel.text!) {(user, error) in
                 if error == nil
                 {
                     print("The sign-up was successful!\n")
                     user?.sendEmailVerification(completion: nil)
-                    self.ref.child("Profile/\(FIRAuth.auth()?.currentUser!.uid)").setValue(["Name" : "\(self.nameLabel.text!)", "Email ID":FIRAuth.auth()?.currentUser?.email, "Skills": "", "Points" : 50, "Pending Requests" : "", "Approved Requests": "", "Sent Requests" : ""])
+                    self.ref.child("Profile/\(Auth.auth().currentUser!.uid)").setValue(["Name" : "\(self.nameLabel.text!)", "Email ID":Auth.auth().currentUser?.email, "Skills": self.theSkills,"Points" : 50, "Pending Requests" : "", "Approved Requests": "", "Sent Requests" : ""])
                     self.performSegue(withIdentifier: "createdUser", sender: self)
                 }
                 else
